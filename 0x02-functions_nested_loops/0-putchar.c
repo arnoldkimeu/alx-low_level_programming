@@ -1,3 +1,8 @@
+/**
+ * File: 0-putchar.c
+ * Auth: Arnold Kimeu
+ */
+
 #include "main.h"
 
 /**
