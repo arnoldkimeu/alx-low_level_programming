@@ -1,45 +1,73 @@
-#include <stdlib.h>
 #include "dog.h"
+#include <stdlib.h>
 
 /**
- * new_dog - creates a new dog
- * @name: name of dog
- * @age: age of dog
- * @owner: owner of dog
- * Return: pointer to new dog
+ * _strdup - duplicate a string
+ * @str: string
+ * Return: pointer to newely allocated space in memory
  */
+char *_strdup(char *str)
+{
+char *str1;
+int i, j;
+
+if (str == NULL)
+{
+return (NULL);
+}
+for (i = 0; str[i]; i++)
+{
+;
+}
+i++;
+str1 = malloc(sizeof(char) * i);
+
+if (str1 == NULL)
+{
+return (NULL);
+}
+for (j = 0; j < i; j++)
+str1[j] = str[j];
+
+return (str1);
+}
+
+/**
+ * new_dog - structure
+ * @name: array of character
+ * @age: floate
+ * @owner: array of character
+ * Return: string
+ */
+
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	unsigned int nl, ol, i;
-	dog_t *dog;
-	if (name == NULL || owner == NULL)
-		return (NULL);
-	dog = malloc(sizeof(dog_t));
-	if (dog == NULL)
-		return (NULL);
-	for (nl = 0; name[nl]; nl++)
-		;
-	nl++;
-	dog->name = malloc(nl * sizeof(char));
-	if (dog->name == NULL)
-	{
-		free(dog);
-		return (NULL);
-	}
-	for (i = 0; i < nl; i++)
-		dog->name[i] = name[i];
-	dog->age = age;
-	for (ol = 0; owner[ol]; ol++)
-		;
-	ol++;
-	dog->owner = malloc(ol * sizeof(char));
-	if (dog->owner == NULL)
-	{
-		free(dog->name);
-		free(dog);
-		return (NULL);
-	}
-	for (i = 0; i < ol; i++)
-		dog->owner[i] = owner[i];
-	return (dog);
+dog_t *new_dog;
+
+if (name == '\0' || owner == '\0')
+return (NULL);
+
+new_dog = malloc(sizeof(dog_t));
+
+if (new_dog == NULL)
+return (NULL);
+
+new_dog->name = _strdup(name);
+if (new_dog->name == NULL)
+{
+free(new_dog);
+return (NULL);
+}
+
+new_dog->age = age;
+
+new_dog->owner = _strdup(owner);
+if (new_dog->owner == NULL)
+{
+free(new_dog->name);
+free(new_dog);
+return (NULL);
+}
+
+return (new_dog);
 }
